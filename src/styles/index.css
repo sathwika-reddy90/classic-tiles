@@ -1,0 +1,318 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Classic Hyderabad — design tokens
+   Navy and gold are lifted from the catalogue crest; ivory, stone and plate
+   come from the marble, concrete and studio backdrops of its photography.
+   ========================================================================== */
+@theme {
+  --color-navy-950: #060d1c;
+  --color-navy-900: #0a1630;
+  --color-navy-800: #102043;
+  --color-navy-700: #1a2d57;
+  --color-navy-600: #2c4170;
+
+  --color-ivory: #f7f4ee;
+  --color-ivory-2: #efebe3;
+  /* Product plate — must equal PLATE in scripts/extract_catalogue_media.py */
+  --color-plate: #ece8e1;
+  --color-stone-300: #d9d3c8;
+  --color-stone-400: #b8b1a5;
+  --color-stone-500: #8d877c;
+  --color-stone-600: #69635a;
+
+  --color-ink: #13161d;
+  --color-ink-soft: #4a4740;
+
+  --color-gold: #c4a46c;
+  --color-gold-soft: #d8c39c;
+  --color-bronze: #7a5e30;
+  --color-burgundy: #6e1e24;
+
+  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Jost Variable', 'Jost', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-hero: clamp(3.05rem, 8.2vw, 9.5rem);
+  --text-hero--line-height: 0.93;
+  --text-hero--letter-spacing: -0.012em;
+  --text-h1: clamp(2.85rem, 6.6vw, 7.25rem);
+  --text-h1--line-height: 0.95;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(2.35rem, 4.8vw, 5.25rem);
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.008em;
+  --text-h3: clamp(1.8rem, 2.7vw, 2.75rem);
+  --text-h3--line-height: 1.06;
+  --text-h4: clamp(1.45rem, 1.75vw, 1.9rem);
+  --text-h4--line-height: 1.12;
+  --text-lead: clamp(1.075rem, 1.2vw, 1.3rem);
+  --text-lead--line-height: 1.62;
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1.4;
+
+  --breakpoint-3xl: 120rem;
+
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-scroll-cue: scroll-cue 2.4s var(--ease-curtain) infinite;
+  @keyframes scroll-cue {
+    0% { transform: scaleY(0); transform-origin: top; }
+    45% { transform: scaleY(1); transform-origin: top; }
+    55% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  :root {
+    --nav-h: 4.25rem;
+    --nav-offset: var(--nav-h);
+    --gutter: 1.25rem;
+    color-scheme: light;
+  }
+  @media (min-width: 48rem) { :root { --gutter: 2rem; } }
+  @media (min-width: 64rem) { :root { --nav-h: 5rem; --gutter: 3.5rem; } }
+  @media (min-width: 96rem) { :root { --gutter: 5rem; } }
+
+  html {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--color-ivory);
+    min-height: 100svh;
+    overflow-x: clip;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  ::selection { background: var(--color-navy-900); color: var(--color-ivory); }
+  img { user-select: none; }
+  :focus-visible {
+    outline: 1.5px solid var(--color-gold);
+    outline-offset: 4px;
+  }
+  .on-light :focus-visible { outline-color: var(--color-bronze); }
+  button { cursor: pointer; }
+
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-stopped { overflow: clip; }
+  .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+}
+
+/* ==========================================================================
+   Layout & typography primitives
+   ========================================================================== */
+@utility shell {
+  width: 100%;
+  max-width: 105rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@utility meta {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-weight: 450;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-feature-settings: 'lnum' 1, 'kern' 1;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.18;
+}
+
+/* Underline that draws in from the left */
+@utility link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.7s var(--ease-luxe);
+  padding-bottom: 0.15em;
+  &:hover, &:focus-visible, &[aria-current='page'] { background-size: 100% 1px; }
+}
+
+/* ==========================================================================
+   Buttons — rectangular, hairline, with a fill that sweeps in
+   ========================================================================== */
+@layer components {
+  .btn {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    font-size: 0.71875rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid currentColor;
+    overflow: hidden;
+    transition: color 0.6s var(--ease-luxe), border-color 0.6s var(--ease-luxe);
+  }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.7s var(--ease-luxe);
+  }
+  .btn:hover::before, .btn:focus-visible::before { transform: scaleX(1); transform-origin: left; }
+  .btn svg { transition: transform 0.7s var(--ease-luxe); }
+  .btn:hover svg { transform: translateX(4px); }
+
+  /* Solid ivory on dark backgrounds */
+  .btn-ivory { background: var(--color-ivory); color: var(--color-navy-900); border-color: var(--color-ivory); }
+  .btn-ivory::before { background: var(--color-gold); }
+  .btn-ivory:hover { border-color: var(--color-gold); }
+
+  /* Outline on dark backgrounds */
+  .btn-outline-light { color: var(--color-ivory); border-color: rgb(247 244 238 / 0.4); }
+  .btn-outline-light::before { background: var(--color-ivory); }
+  .btn-outline-light:hover { color: var(--color-navy-900); border-color: var(--color-ivory); }
+
+  /* Solid navy on light backgrounds */
+  .btn-navy { background: var(--color-navy-900); color: var(--color-ivory); border-color: var(--color-navy-900); }
+  .btn-navy::before { background: var(--color-navy-700); }
+
+  /* Outline on light backgrounds */
+  .btn-outline-dark { color: var(--color-navy-900); border-color: rgb(10 22 48 / 0.28); }
+  .btn-outline-dark::before { background: var(--color-navy-900); }
+  .btn-outline-dark:hover { color: var(--color-ivory); border-color: var(--color-navy-900); }
+}
+
+/* ==========================================================================
+   Motion — slow, controlled, precise
+   ========================================================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+  transition:
+    opacity 1.1s var(--ease-luxe) var(--d, 0ms),
+    transform 1.4s var(--ease-luxe) var(--d, 0ms);
+}
+[data-reveal='fade'] { transform: none; }
+[data-reveal='lines'] { opacity: 1; transform: none; }
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Headline lines rising out of a mask */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-mask > span {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1.35s var(--ease-luxe) var(--d, 0ms);
+}
+.is-in .line-mask > span, .line-mask.is-in > span { transform: none; }
+
+/* Image curtain reveal: a panel in the section's own colour lifts away.
+   An overlay (rather than clip-path) keeps the image itself visible to the
+   browser, so lazy images begin loading before they are revealed. */
+[data-reveal='image'] { opacity: 1; transform: none; position: relative; }
+[data-reveal='image']::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--reveal-bg, var(--color-navy-950));
+  transform-origin: top;
+  transition: transform 1.5s var(--ease-curtain) var(--d, 0ms);
+}
+[data-reveal='image'] img { transform: scale(1.16); transition: transform 2.2s var(--ease-luxe) var(--d, 0ms); }
+[data-reveal='image'].is-in::after { transform: scaleY(0); }
+[data-reveal='image'].is-in img { transform: scale(1); }
+.on-light { --reveal-bg: var(--color-ivory); }
+
+/* Hairlines drawing across */
+[data-reveal='rule'] { opacity: 1; transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--ease-luxe) var(--d, 0ms); }
+[data-reveal='rule'].is-in { transform: scaleX(1); }
+
+/* Images fade in once decoded */
+.img-fade { opacity: 0; transition: opacity 0.9s var(--ease-luxe); }
+.img-fade.is-loaded { opacity: 1; }
+
+/* Page curtain */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background: var(--color-navy-950);
+  transform: translate3d(0, 100%, 0);
+}
+.curtain[data-state='cover'] { transform: none; transition: transform 0.6s var(--ease-curtain); pointer-events: auto; }
+.curtain[data-state='reveal'] { transform: translate3d(0, -100%, 0); transition: transform 0.75s var(--ease-curtain); }
+.curtain[data-state='idle'] { transition: none; }
+
+.page-enter { animation: page-enter 1s var(--ease-luxe) both; }
+@keyframes page-enter {
+  from { opacity: 0; transform: translate3d(0, 1.25rem, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Hero intro */
+.hero-media { animation: hero-settle 2.8s var(--ease-luxe) both; }
+@keyframes hero-settle {
+  from { transform: scale(1.14); filter: brightness(0.55); }
+  to { transform: scale(1.04); filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal], .line-mask > span { opacity: 1 !important; transform: none !important; }
+  [data-reveal='image']::after { display: none; }
+  [data-reveal='image'] img { transform: none !important; }
+}
+
+/* Scrollbars on horizontal rails */
+.rail { scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }

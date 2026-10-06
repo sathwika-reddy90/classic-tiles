@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Classic Hyderabad — Designer Tiles &amp; Architectural Materials</title>
+    <meta
+      name="description"
+      content="Classic Hyderabad, since 1985 — designer floor tiles, pavers, wall tiles, kerb stones, partition and elevation jalies and clay decorative tiles from IDA Nacharam, Hyderabad."
+    />
+    <meta name="theme-color" content="#0A1630" />
+    <meta property="og:title" content="Classic Hyderabad — Designer Tiles & Architectural Materials" />
+    <meta property="og:description" content="Architectural surfaces from Hyderabad, since 1985." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/media/scenes/square-driveway-1600.webp" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script>
+      // Preload the hero (the LCP image) only where it is shown — the home page.
+      if (location.pathname === '/') {
+        ;[
+          ['(min-width: 768px)', 'square-driveway', [1024, 1600, 2400]],
+          ['(max-width: 767.98px)', 'square-driveway-portrait', [640, 1024, 1240]],
+        ].forEach(function (p) {
+          var l = document.createElement('link')
+          l.rel = 'preload'
+          l.as = 'image'
+          l.type = 'image/webp'
+          l.media = p[0]
+          l.setAttribute('imagesrcset', p[2].map(function (w) { return '/media/scenes/' + p[1] + '-' + w + '.webp ' + w + 'w' }).join(', '))
+          l.setAttribute('imagesizes', '100vw')
+          l.setAttribute('fetchpriority', 'high')
+          document.head.appendChild(l)
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; font-family: system-ui, sans-serif">
+        Classic Hyderabad — Plot A-28/1/20/B, Road No. 15, IDA Nacharam, Hyderabad – 500 076, Telangana, India.
+        Cell: 96520 42828, 98496 60299, 96760 01199.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
