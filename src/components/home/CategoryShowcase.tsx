@@ -13,8 +13,8 @@ const WIDE = new Set(['square-shot-blast', 'combi-pavers', 'kerb-jalies'])
 /**
  * The catalogue as nine chapters on a horizontal rail. It fits one screen:
  * on desktop the intro sits beside the rail, which moves sideways with the
- * arrow buttons, a trackpad or the keyboard; on touch screens it is a native,
- * snap-aligned swipe rail.
+ * arrow buttons, a trackpad or the keyboard; on phones it moves one panel at a
+ * time with the arrow buttons under it.
  */
 export function CategoryShowcase() {
   const rail = useRef<HTMLDivElement>(null)
@@ -28,9 +28,15 @@ export function CategoryShowcase() {
     const p = max > 0 ? r.scrollLeft / max : 0
     if (bar.current) bar.current.style.transform = `scaleX(${Math.max(0.04, p)})`
     if (counter.current) {
-      counter.current.textContent = String(
-        Math.min(chapters.length, Math.floor(p * (chapters.length - 1)) + 1),
-      ).padStart(2, '0')
+      let index = Math.floor(p * (chapters.length - 1))
+      // Phones step a panel at a time, so count the panel at the rail's start.
+      if (!matchMedia('(min-width: 1024px)').matches) {
+        const panels = [...r.querySelectorAll<HTMLElement>('[data-panel]')]
+        const start = r.getBoundingClientRect().left + (parseFloat(getComputedStyle(r).scrollPaddingLeft) || 0)
+        const gaps = panels.map((el) => Math.abs(el.getBoundingClientRect().left - start))
+        index = gaps.indexOf(Math.min(...gaps))
+      }
+      counter.current.textContent = String(Math.min(chapters.length, index + 1)).padStart(2, '0')
     }
   }
 
@@ -38,8 +44,30 @@ export function CategoryShowcase() {
     const r = rail.current
     const panel = r?.querySelector<HTMLElement>('[data-panel]')
     if (!r || !panel) return
-    r.scrollBy({ left: dir * (panel.offsetWidth + 40), behavior: 'smooth' })
+    if (matchMedia('(min-width: 1024px)').matches) {
+      r.scrollBy({ left: dir * (panel.offsetWidth + 40), behavior: 'smooth' })
+      return
+    }
+    // Phones: panels differ in width, so go to the start of the next or previous one.
+    const pad = parseFloat(getComputedStyle(r).scrollPaddingLeft) || 0
+    const origin = r.getBoundingClientRect().left + pad
+    const offsets = [...r.querySelectorAll<HTMLElement>('[data-panel]')].map(
+      (el) => el.getBoundingClientRect().left - origin,
+    )
+    const target = dir > 0 ? offsets.find((x) => x > 2) : offsets.filter((x) => x < -2).pop()
+    if (target !== undefined) r.scrollBy({ left: target, behavior: 'smooth' })
   }
+
+  const arrowButton = (dir: 1 | -1) => (
+    <button
+      type="button"
+      onClick={() => step(dir)}
+      aria-label={dir > 0 ? 'Next chapters' : 'Previous chapters'}
+      className="grid size-12 shrink-0 place-items-center border border-navy-900/25 text-navy-900 transition-colors hover:border-navy-900 hover:bg-navy-900 hover:text-ivory"
+    >
+      <Arrow className={dir > 0 ? undefined : 'rotate-180'} />
+    </button>
+  )
 
   return (
     <section
@@ -51,22 +79,8 @@ export function CategoryShowcase() {
         <div className="shell pb-12 lg:w-[min(34vw,30rem)] lg:max-w-none lg:shrink-0 lg:pr-0 lg:pb-0">
           <Intro />
           <div className="mt-10 hidden items-center gap-3 lg:flex">
-            <button
-              type="button"
-              onClick={() => step(-1)}
-              aria-label="Previous chapters"
-              className="grid size-12 place-items-center border border-navy-900/25 text-navy-900 transition-colors hover:border-navy-900 hover:bg-navy-900 hover:text-ivory"
-            >
-              <Arrow className="rotate-180" />
-            </button>
-            <button
-              type="button"
-              onClick={() => step(1)}
-              aria-label="Next chapters"
-              className="grid size-12 place-items-center border border-navy-900/25 text-navy-900 transition-colors hover:border-navy-900 hover:bg-navy-900 hover:text-ivory"
-            >
-              <Arrow />
-            </button>
+            {arrowButton(-1)}
+            {arrowButton(1)}
           </div>
         </div>
 
@@ -75,7 +89,7 @@ export function CategoryShowcase() {
             ref={rail}
             onScroll={onScroll}
             data-lenis-prevent
-            className="rail flex snap-x snap-mandatory scroll-px-[var(--gutter)] items-end gap-5 overflow-x-auto px-[var(--gutter)] sm:gap-8 lg:scroll-px-12 lg:gap-10 lg:px-12"
+            className="rail flex snap-x snap-mandatory scroll-px-[var(--gutter)] items-end gap-5 overflow-x-auto max-lg:touch-pan-y max-lg:overflow-x-hidden px-[var(--gutter)] sm:gap-8 lg:scroll-px-12 lg:gap-10 lg:px-12"
           >
             {chapters.map((c) => (
               <ChapterPanel key={c.id} chapter={c} />
@@ -91,7 +105,8 @@ export function CategoryShowcase() {
             </div>
           </div>
 
-          <div className="mt-8 hidden items-center gap-6 pr-[var(--gutter)] pl-12 lg:flex">
+          <div className="mt-8 flex items-center gap-4 px-[var(--gutter)] lg:gap-6 lg:pl-12">
+            <span className="lg:hidden">{arrowButton(-1)}</span>
             <span className="meta tabular text-navy-900">
               <span ref={counter}>01</span>
               <span className="mx-2 text-stone-400">/</span>
@@ -100,6 +115,7 @@ export function CategoryShowcase() {
             <div className="relative h-px flex-1 bg-navy-900/12">
               <div ref={bar} className="absolute inset-0 origin-left scale-x-[0.04] bg-gold" />
             </div>
+            <span className="lg:hidden">{arrowButton(1)}</span>
           </div>
         </div>
       </div>

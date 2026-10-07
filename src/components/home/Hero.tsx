@@ -118,7 +118,7 @@ export function Hero() {
         <div
           data-reveal="fade"
           style={delay(1100)}
-          className="absolute inset-x-[var(--gutter)] top-[35%] bottom-[31%] flex flex-col justify-center lg:inset-x-auto lg:top-[calc(var(--nav-h)+1.5rem)] lg:right-[var(--gutter)] lg:bottom-[calc(4.25rem+clamp(1rem,3vh,2rem))] lg:w-[min(22vw,19rem)]"
+          className="absolute z-10 inset-x-[var(--gutter)] top-[35%] bottom-[31%] flex flex-col justify-center lg:inset-x-auto lg:top-[calc(var(--nav-h)+1.5rem)] lg:right-[var(--gutter)] lg:bottom-[calc(4.25rem+clamp(1rem,3vh,2rem))] lg:w-[min(22vw,19rem)]"
         >
           <TLink
             to={`/products?p=${PRODUCT}`}

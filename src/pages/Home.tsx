@@ -7,6 +7,7 @@ import { CategoryShowcase } from '../components/home/CategoryShowcase'
 import { FeaturedProducts } from '../components/home/FeaturedProducts'
 import { FinalCTA } from '../components/home/FinalCTA'
 import { Hero } from '../components/home/Hero'
+import { HeroWalls } from '../components/home/HeroWalls'
 import { Leadership } from '../components/home/Leadership'
 import { MaterialStory } from '../components/home/MaterialStory'
 import { ProjectShowcase } from '../components/home/ProjectShowcase'
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <HeroWalls />
       <AtAGlance />
       <BrandStory />
       <Leadership />
