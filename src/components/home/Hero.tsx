@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { company } from '../../data/company'
-import { primaryMeasure, productById } from '../../data/products'
+import { primaryMeasure, productById, products } from '../../data/products'
 import { mediaEntry, mediaSrc, mediaSrcSet } from '../../lib/media'
 import { TLink } from '../../lib/transition'
 import { useScrollFrame } from '../../hooks/useScrollFrame'
@@ -19,6 +19,14 @@ const PORTRAIT = 'hex-driveway-portrait'
  * are that render re-based on each colour (scripts/make_hero_cutouts.py).
  */
 const PRODUCT = 'hexagonal'
+/** The strip along the bottom edge: the same figures as the stats band below, and the range. */
+const facts = [
+  { value: `${new Date().getFullYear() - company.since}+`, label: 'Years manufacturing' },
+  { value: String(products.length), label: 'Catalogue designs' },
+  { value: company.certification, label: 'Certified' },
+]
+const makes = ['Designer tiles', 'Pavers', 'Kerbs & drains', 'Jalies']
+
 const COLOURS = [
   { image: 'hexagonal-cut', name: 'Black', laid: 'The driveway field' },
   { image: 'hexagonal-yellow-cut', name: 'Yellow', laid: 'Flower petals' },
@@ -110,7 +118,7 @@ export function Hero() {
         <div
           data-reveal="fade"
           style={delay(1100)}
-          className="absolute inset-x-[var(--gutter)] top-[35%] bottom-[31%] flex flex-col justify-center lg:inset-x-auto lg:top-[calc(var(--nav-h)+1.5rem)] lg:right-[var(--gutter)] lg:bottom-[clamp(1.5rem,5vh,3rem)] lg:w-[min(22vw,19rem)]"
+          className="absolute inset-x-[var(--gutter)] top-[35%] bottom-[31%] flex flex-col justify-center lg:inset-x-auto lg:top-[calc(var(--nav-h)+1.5rem)] lg:right-[var(--gutter)] lg:bottom-[calc(4.25rem+clamp(1rem,3vh,2rem))] lg:w-[min(22vw,19rem)]"
         >
           <TLink
             to={`/products?p=${PRODUCT}`}
@@ -175,7 +183,7 @@ export function Hero() {
         </div>
 
         {/* Copy */}
-        <div className="shell relative flex h-full flex-col justify-between pt-[calc(var(--nav-h)+1.5rem)] pb-8 lg:justify-center lg:gap-10 lg:pt-[var(--nav-h)] lg:pb-12">
+        <div className="shell relative flex h-full flex-col justify-between pt-[calc(var(--nav-h)+1.5rem)] pb-8 lg:justify-center lg:gap-10 lg:pt-[var(--nav-h)] lg:pb-24">
           <div className="lg:max-w-[36rem]">
             <p data-reveal="fade" style={delay(600)} className="flex items-center gap-3.5">
               <span aria-hidden="true" className="h-px w-5 shrink-0 bg-gold sm:w-8" />
@@ -228,6 +236,36 @@ export function Hero() {
                 View projects
               </ButtonLink>
             </div>
+          </div>
+        </div>
+
+        {/* Supporting facts and range, along the bottom edge */}
+        <div
+          data-reveal="fade"
+          style={delay(2300)}
+          className="shell pointer-events-none absolute inset-x-0 bottom-0 hidden lg:block"
+        >
+          <div className="flex items-center justify-between gap-8 border-t border-ivory/20 py-5">
+            <dl className="flex items-center gap-8">
+              {facts.map((f, i) => (
+                <div key={f.label} className={`flex items-baseline gap-3 ${i ? 'border-l border-ivory/20 pl-8' : ''}`}>
+                  <dd className="tabular text-[1.25rem] leading-none font-bold whitespace-nowrap text-ivory">
+                    {f.value}
+                  </dd>
+                  <dt className="text-[0.625rem] font-medium tracking-[0.14em] whitespace-nowrap text-ivory/65 uppercase">
+                    {f.label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+            <p className="hidden items-center gap-4 text-[0.625rem] font-medium tracking-[0.14em] whitespace-nowrap text-ivory/65 uppercase xl:flex">
+              {makes.map((m, i) => (
+                <span key={m} className="flex items-center gap-4">
+                  {i > 0 && <span aria-hidden="true" className="size-[3px] rounded-full bg-gold" />}
+                  {m}
+                </span>
+              ))}
+            </p>
           </div>
         </div>
       </div>
