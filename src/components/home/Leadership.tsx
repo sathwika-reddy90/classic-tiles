@@ -36,18 +36,35 @@ export function Leadership() {
 
           <div className="lg:col-span-6 lg:col-start-7 lg:grid lg:justify-items-end">
             <div className="lg:w-fit">
-              <div
+              <figure
                 data-reveal="image"
-                className="relative aspect-[1240/1016] overflow-hidden bg-[#0c2350] lg:h-[min(54svh,36rem)] lg:max-w-full [@media(max-height:50rem)]:lg:h-[46svh]"
+                className="relative aspect-[17/13] overflow-hidden bg-[#0c2350] lg:h-[min(54svh,36rem)] lg:max-w-full [@media(max-height:50rem)]:lg:h-[46svh]"
               >
                 <Img
                   group="scenes"
-                  name="leadership-named"
+                  name="leadership"
                   alt="Ln. Tallada Venkanna, Founder Chairman & Managing Director, with Director Tallada Sunil"
                   sizes="(min-width: 1024px) 46vw, 100vw"
                   className="h-full w-full object-cover"
                 />
-              </div>
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy-950/85 via-navy-950/35 to-transparent"
+                />
+                {/* Names set where the catalogue sets them: each beside its portrait */}
+                <figcaption className="absolute inset-x-[5%] bottom-[6%] flex items-end justify-between gap-6">
+                  {leadership.map((person, i) => (
+                    <span key={person.name} className={i ? 'text-right' : 'mb-[8%]'}>
+                      <span className="block text-[clamp(0.95rem,1.35vw,1.3rem)] leading-tight font-semibold text-ivory">
+                        {person.name}
+                      </span>
+                      <span className="meta mt-1 block max-w-[13rem] text-[0.625rem] leading-relaxed text-gold">
+                        {person.role}
+                      </span>
+                    </span>
+                  ))}
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
