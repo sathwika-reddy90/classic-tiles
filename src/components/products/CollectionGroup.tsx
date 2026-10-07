@@ -29,7 +29,7 @@ export function CollectionGroup({ index, collection, items, alsoHere, first, onO
           <h2 id={headingId} className="serif text-h3 text-navy-900">
             {collection.title}
           </h2>
-          {collection.tagline && <p className="serif mt-3 text-[1.25rem] text-ink-soft italic">{collection.tagline}</p>}
+          {collection.tagline && <p className="serif mt-3 text-[1.0625rem] text-ink-soft italic">{collection.tagline}</p>}
           {collection.properties.length > 0 && (
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
               {collection.properties.map((p) => (

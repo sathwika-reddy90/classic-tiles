@@ -29,23 +29,26 @@
   --color-bronze: #7a5e30;
   --color-burgundy: #6e1e24;
 
-  --font-serif: 'Cormorant Garamond', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-sans: 'Jost Variable', 'Jost', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Poppins throughout, as in the catalogue: plain, sturdy and commercial.
+     Headings ("serif" is the historical name of the heading utility) use its
+     semibold; body copy its regular. */
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-sans);
 
-  --text-hero: clamp(3.05rem, 8.2vw, 9.5rem);
-  --text-hero--line-height: 0.93;
-  --text-hero--letter-spacing: -0.012em;
-  --text-h1: clamp(2.85rem, 6.6vw, 7.25rem);
-  --text-h1--line-height: 0.95;
-  --text-h1--letter-spacing: -0.01em;
-  --text-h2: clamp(2.35rem, 4.8vw, 5.25rem);
-  --text-h2--line-height: 1;
-  --text-h2--letter-spacing: -0.008em;
-  --text-h3: clamp(1.8rem, 2.7vw, 2.75rem);
-  --text-h3--line-height: 1.06;
-  --text-h4: clamp(1.45rem, 1.75vw, 1.9rem);
-  --text-h4--line-height: 1.12;
-  --text-lead: clamp(1.075rem, 1.2vw, 1.3rem);
+  --text-hero: clamp(2.5rem, 6vw, 6.5rem);
+  --text-hero--line-height: 1.04;
+  --text-hero--letter-spacing: -0.02em;
+  --text-h1: clamp(2.2rem, 4.6vw, 4.75rem);
+  --text-h1--line-height: 1.06;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.9rem, 3.5vw, 3.6rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.45rem, 2.1vw, 2.1rem);
+  --text-h3--line-height: 1.2;
+  --text-h4: clamp(1.2rem, 1.4vw, 1.5rem);
+  --text-h4--line-height: 1.3;
+  --text-lead: clamp(1.025rem, 1.1vw, 1.175rem);
   --text-lead--line-height: 1.62;
   --text-eyebrow: 0.6875rem;
   --text-eyebrow--line-height: 1.4;
@@ -123,8 +126,8 @@
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
   line-height: 1.4;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -132,15 +135,17 @@
   font-family: var(--font-sans);
   font-size: 0.75rem;
   line-height: 1.5;
-  font-weight: 450;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 @utility serif {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 600;
   font-feature-settings: 'lnum' 1, 'kern' 1;
+  /* Taglines once set in a serif italic read as plain, lighter copy now. */
+  &.italic { font-style: normal; font-weight: 400; }
 }
 
 @utility tabular {
@@ -164,6 +169,22 @@
   &:hover, &:focus-visible, &[aria-current='page'] { background-size: 100% 1px; }
 }
 
+/* One section, one screen: on desktop every homepage section is exactly the
+   height of the viewport (never taller), its content laid out to fit below
+   the navigation. Phones keep natural height. */
+@utility screen {
+  @media (min-width: 64rem) {
+    height: 100svh;
+    min-height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: calc(var(--nav-h) + clamp(1rem, 3vh, 2.5rem));
+    padding-bottom: clamp(1.5rem, 4.5vh, 3.5rem);
+    overflow: hidden;
+  }
+}
+
 /* ==========================================================================
    Buttons — rectangular, hairline, with a fill that sweeps in
    ========================================================================== */
@@ -178,8 +199,8 @@
     min-height: 3.25rem;
     padding: 0 1.75rem;
     font-size: 0.71875rem;
-    font-weight: 500;
-    letter-spacing: 0.24em;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     white-space: nowrap;
     border: 1px solid currentColor;
@@ -293,12 +314,37 @@
   to { opacity: 1; transform: none; }
 }
 
-/* Hero intro */
-.hero-media { animation: hero-settle 2.8s var(--ease-luxe) both; }
-@keyframes hero-settle {
-  from { transform: scale(1.14); filter: brightness(0.55); }
-  to { transform: scale(1.04); filter: none; }
+/* Hero intro: the project comes up out of darkness with the faintest settle. */
+.hero-set { animation: hero-set 2.6s var(--ease-luxe) both; }
+@keyframes hero-set {
+  from { opacity: 0; transform: scale(1.04); filter: brightness(0.6); }
+  to { opacity: 1; transform: none; filter: none; }
 }
+/* The hero is always in view on load, so its reveals follow the hero itself
+   rather than waiting on the viewport observer. */
+.hero.is-in [data-reveal] { opacity: 1; transform: none; }
+
+/* Campaign products: each layer drifts with scroll and pointer in proportion
+   to its depth, and rises into focus on load. */
+.hero-depth {
+  translate: calc(var(--px, 0) * var(--depth) * 12px) calc(var(--py, 0) * var(--depth) * 8px - var(--sy, 0) * var(--depth) * 0.12px);
+  transition: translate 1.4s var(--ease-luxe);
+}
+.hero-product {
+  opacity: 0;
+  transform: translate3d(0, 3rem, 0) scale(0.96);
+  filter: blur(8px);
+  transition:
+    opacity 1.4s var(--ease-luxe) var(--d, 0ms),
+    transform 2s var(--ease-luxe) var(--d, 0ms),
+    filter 1.6s var(--ease-luxe) var(--d, 0ms);
+}
+.hero.is-in .hero-product { opacity: 1; transform: none; filter: none; }
+
+/* Client marquee: the track holds two copies and moves by one */
+.marquee { animation: marquee 140s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -311,6 +357,7 @@
   [data-reveal], .line-mask > span { opacity: 1 !important; transform: none !important; }
   [data-reveal='image']::after { display: none; }
   [data-reveal='image'] img { transform: none !important; }
+  .marquee { animation: none !important; }
 }
 
 /* Scrollbars on horizontal rails */

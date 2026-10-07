@@ -63,7 +63,7 @@ export function FilterBar({ category, counts, total, showing, chapter, onCategor
               <span className="max-sm:hidden">Chapter </span>
               {chapter.number}
             </span>
-            <span className="serif min-w-0 truncate text-[1.125rem] text-navy-900">{chapter.title}</span>
+            <span className="serif min-w-0 truncate text-[0.9375rem] text-navy-900">{chapter.title}</span>
             <button
               type="button"
               onClick={onClearChapter}

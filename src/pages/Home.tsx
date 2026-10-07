@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
+import { AtAGlance } from '../components/home/AtAGlance'
 import { ApplicationSection } from '../components/home/ApplicationSection'
 import { BrandStory } from '../components/home/BrandStory'
+import { ClientMarquee } from '../components/home/ClientMarquee'
 import { CategoryShowcase } from '../components/home/CategoryShowcase'
 import { FeaturedProducts } from '../components/home/FeaturedProducts'
 import { FinalCTA } from '../components/home/FinalCTA'
@@ -17,12 +19,14 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <AtAGlance />
       <BrandStory />
       <Leadership />
       <CategoryShowcase />
       <FeaturedProducts />
       <ApplicationSection />
       <ProjectShowcase />
+      <ClientMarquee />
       <MaterialStory />
       <FinalCTA />
     </>

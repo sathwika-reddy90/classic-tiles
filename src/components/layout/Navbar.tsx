@@ -59,7 +59,7 @@ export function Navbar() {
                   <TLink
                     to={link.to}
                     aria-current={isCurrent(link.to, pathname) ? 'page' : undefined}
-                    className="link-line text-[0.6875rem] font-medium tracking-[0.24em] uppercase"
+                    className="link-line text-[0.75rem] font-semibold tracking-[0.14em] uppercase"
                   >
                     {link.label}
                   </TLink>
@@ -72,9 +72,10 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => openEnquiry()}
-              className={`btn hidden min-h-[2.75rem] px-6 lg:inline-flex ${light ? 'btn-outline-light' : 'btn-outline-dark'}`}
+              className="group hidden items-center gap-3 py-2 text-[0.75rem] font-semibold tracking-[0.14em] uppercase lg:inline-flex"
             >
-              <span>Enquire</span>
+              <span aria-hidden="true" className={`size-1 rounded-full ${light ? 'bg-gold' : 'bg-bronze'}`} />
+              <span className="link-line">Enquire</span>
             </button>
             <button
               type="button"
@@ -83,7 +84,7 @@ export function Navbar() {
               aria-controls="mobile-menu"
               className="-mr-2 flex h-11 items-center gap-3 px-2 lg:hidden"
             >
-              <span className="text-[0.6875rem] font-medium tracking-[0.24em] uppercase">Menu</span>
+              <span className="text-[0.75rem] font-semibold tracking-[0.14em] uppercase">Menu</span>
               <span aria-hidden="true" className="flex w-6 flex-col gap-[6px]">
                 <span className="h-px w-full bg-current" />
                 <span className="h-px w-2/3 self-end bg-current" />

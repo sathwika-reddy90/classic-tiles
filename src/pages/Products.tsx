@@ -95,7 +95,7 @@ export default function Products() {
             <Lines as="h1" lines={['Product', 'Collection']} className="serif mt-8 text-hero text-navy-900" />
           </div>
           <div className="lg:col-span-4 lg:pb-4">
-            <p data-reveal style={delay(200)} className="serif text-[clamp(1.5rem,2vw,1.9rem)] leading-snug text-navy-900 italic">
+            <p data-reveal style={delay(200)} className="serif text-[clamp(1.15rem,1.5vw,1.4rem)] leading-snug text-navy-900 italic">
               Architectural surfaces, crafted for lasting impact.
             </p>
             <p data-reveal style={delay(300)} className="meta tabular mt-6 text-stone-600">

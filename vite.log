@@ -1,0 +1,8 @@
+
+  VITE v8.3.3  ready in 196 ms
+
+  ➜  Local:   http://localhost:5199/
+  ➜  Network: use --host to expose
+3:37:50 PM [vite] (client) hmr update /src/styles/index.css, /src/components/home/Leadership.tsx
+3:38:35 PM [vite] (client) hmr update /src/styles/index.css, /src/components/home/Leadership.tsx
+3:38:36 PM [vite] (client) hmr update /src/styles/index.css, /src/components/home/Leadership.tsx

@@ -60,7 +60,7 @@ export function EnquiryDrawer({ open, product, onClose }: { open: boolean; produ
               </div>
               <div className="min-w-0">
                 <p className="meta text-stone-600">Regarding</p>
-                <p className="serif mt-1 text-[1.5rem] leading-tight text-navy-900">{displayName(product)}</p>
+                <p className="serif mt-1 text-[1.15rem] leading-tight text-navy-900">{displayName(product)}</p>
                 <p className="mt-1 text-[0.8125rem] text-ink-soft">
                   {collectionById[product.collections[0]].title}
                   {primaryMeasure(product) && <> · {primaryMeasure(product)}</>}
@@ -78,7 +78,7 @@ export function EnquiryDrawer({ open, product, onClose }: { open: boolean; produ
                     href={`tel:${p.tel}`}
                     className="group flex items-center justify-between py-4 text-navy-900 transition-colors hover:text-bronze"
                   >
-                    <span className="serif tabular text-[1.75rem] leading-none">{p.display}</span>
+                    <span className="serif tabular text-[1.35rem] leading-none">{p.display}</span>
                     <Arrow className="transition-transform duration-500 group-hover:translate-x-1" />
                   </a>
                 </li>

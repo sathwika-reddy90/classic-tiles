@@ -143,10 +143,10 @@ export function ProductDetail({ product, list, onClose, onSelect }: Props) {
           </div>
 
           <div key={shown.id} className="page-enter flex flex-1 flex-col px-6 pt-8 pb-10 lg:px-12 lg:pt-14 lg:pb-12">
-            <h2 id="product-title" className="serif text-[clamp(2.6rem,5vw,4.75rem)] leading-[0.95] text-navy-900">
+            <h2 id="product-title" className="serif text-[clamp(2rem,3.6vw,3.4rem)] leading-[1.05] text-navy-900">
               {shown.name}
             </h2>
-            {shown.variant && <p className="serif mt-2 text-[1.5rem] text-stone-500 italic">{shown.variant}</p>}
+            {shown.variant && <p className="serif mt-2 text-[1.125rem] text-stone-500 italic">{shown.variant}</p>}
             {collection.tagline && <p className="mt-5 max-w-[40ch] text-ink-soft">{collection.tagline}</p>}
 
             <dl className="mt-10 border-t border-navy-900/12">

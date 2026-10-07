@@ -17,7 +17,9 @@ export function useRevealObserver() {
           }
         }
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.01 },
+      // Reveal as soon as anything enters the screen: homepage sections are
+      // exactly one screen tall, so content in their lowest strip must count.
+      { rootMargin: '0px', threshold: 0 },
     )
     const scan = (root: ParentNode) => {
       root.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el) => io.observe(el))
