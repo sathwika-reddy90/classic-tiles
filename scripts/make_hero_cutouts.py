@@ -133,10 +133,20 @@ def save_widths(im, stem, widths, folder, quality):
     return {"w": im.width, "h": im.height, "widths": sorted(set(done))}
 
 
+# Images supplied outside the catalogue rasters, exported as scenes:
+# key -> source file in scripts/sources/.
+SUPPLIED = {"leadership-named": "leadership-named.png"}
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     with open(MANIFEST) as f:
         manifest = json.load(f)
+    for key, name in SUPPLIED.items():
+        im = Image.open(os.path.join(ROOT, "scripts", "sources", name)).convert("RGB")
+        scenes = os.path.join(ROOT, "public", "media", "scenes")
+        manifest["scenes"][key] = save_widths(im, key, (640, im.width), scenes, 88)
+        print(f"{key}: {im.width}x{im.height}")
     group = {}
     for key, (mode, floor) in PRODUCTS.items():
         im, variants = cutout(key, mode, floor)
