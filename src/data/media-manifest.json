@@ -893,5 +893,31 @@
     320
    ]
   }
+ },
+ "hero": {
+  "hexagonal-cut": {
+   "w": 695,
+   "h": 556,
+   "widths": [
+    480,
+    695
+   ]
+  },
+  "hexagonal-yellow-cut": {
+   "w": 695,
+   "h": 556,
+   "widths": [
+    480,
+    695
+   ]
+  },
+  "hexagonal-red-cut": {
+   "w": 695,
+   "h": 556,
+   "widths": [
+    480,
+    695
+   ]
+  }
  }
 }

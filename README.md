@@ -27,16 +27,17 @@ src/
     applications.ts  homepage "Application" sectors
     media-manifest.json   generated — image sizes and widths
   components/
-    layout/   Navbar, MobileMenu, EnquiryDrawer, Footer, Wordmark
-    home/     Hero, BrandStory, Leadership, CategoryShowcase, FeaturedProducts,
+    layout/   Navbar, MobileMenu, EnquiryDrawer, Footer, Wordmark (the crest)
+    home/     Hero, AtAGlance, ClientMarquee, BrandStory, Leadership, CategoryShowcase, FeaturedProducts,
               ApplicationSection, ProjectShowcase, MaterialStory, FinalCTA
     products/ FilterBar, CollectionGroup, ProductCard, ProductDetail
-    ui/       Img, Button, Typography (Eyebrow, Lines, Arrow)
+    ui/       Img, Button, Typography (Eyebrow, Lines, Arrow), TextMotion (CountUp, RotatingWord)
   pages/      Home, Products, NotFound
   hooks/      scroll frame / parallax, reveal observer, media queries, focus trap
   lib/        smooth scroll + scroll lock, page transitions, enquiry context, media URLs
   styles/index.css   design tokens (@theme), type scale, buttons, motion
 scripts/extract_catalogue_media.py   catalogue → web images
+scripts/make_hero_cutouts.py         product renders → transparent paver cutouts for the hero
 ```
 
 The Products page keeps its state in the URL: `?category=pavers`, `?chapter=kerb-jalies`, `?p=scorpio` (open product). Every view can be shared as a link.
@@ -51,6 +52,12 @@ npm run media -- /tmp/classic-pages                      # needs Python 3 + Pill
 ```
 
 Crop boxes are page-pixel coordinates in `SCENES` / `PRODUCTS` / `PROJECTS` at the top of the script. The plate colour `PLATE` must match `--color-plate` in `src/styles/index.css`.
+
+The homepage hero is set in the catalogue's page-9 driveway, laid in Hexagonal pavers, and stages the Hexagonal paver laid in it as a transparent cutout of its catalogue render, made by `scripts/make_hero_cutouts.py`. After `npm run media` also run:
+
+```bash
+npm run media:hero     # needs scipy as well
+```
 
 ## Adding a product
 

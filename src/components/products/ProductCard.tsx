@@ -17,6 +17,7 @@ export function ProductCard({
   sizes = '(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 46vw',
   label,
   headingLevel: H = 'h3',
+  frame = 'aspect-[4/5]',
 }: {
   product: Product
   index?: number
@@ -25,13 +26,15 @@ export function ProductCard({
   /** Small caps line under the name; defaults to the product's collection. */
   label?: string
   headingLevel?: 'h3' | 'h4'
+  /** Sizing of the image plate; a layout may size it by height instead. */
+  frame?: string
 }) {
   // primaryMeasure falls back to thickness when no dimensions are published
   const detail = product.specs?.find((s) => product.dimensions.length || s.label !== 'Thickness')
 
   return (
     <article className="group relative has-[:focus-visible]:outline has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-offset-[6px] has-[:focus-visible]:outline-bronze">
-      <div className="relative aspect-[4/5] overflow-hidden bg-plate">
+      <div className={`relative overflow-hidden bg-plate ${frame}`}>
         <Img
           group="products"
           name={product.images[0]}
@@ -40,12 +43,17 @@ export function ProductCard({
           className="h-full w-full object-contain transition-transform duration-[1.6s] ease-[var(--ease-luxe)] group-hover:scale-[1.06]"
         />
         {index !== undefined && (
-          <span aria-hidden="true" className="tabular absolute top-4 left-4 text-[0.6875rem] tracking-[0.18em] text-stone-500">
+          <span
+            aria-hidden="true"
+            className="tabular absolute top-4 left-4 text-[0.6875rem] tracking-[0.18em] text-stone-500"
+          >
             {String(index + 1).padStart(2, '0')}
           </span>
         )}
         {product.images.length > 1 && (
-          <span className="meta absolute top-4 right-4 text-[0.625rem] text-stone-500">{product.images.length} views</span>
+          <span className="meta absolute top-4 right-4 text-[0.625rem] text-stone-500">
+            {product.images.length} views
+          </span>
         )}
         <span
           aria-hidden="true"
@@ -57,7 +65,7 @@ export function ProductCard({
       </div>
 
       <div className="mt-4 lg:mt-5">
-        <H className="serif text-[clamp(1.35rem,1.9vw,1.75rem)] leading-tight text-navy-900">
+        <H className="serif text-[clamp(1.05rem,1.4vw,1.3rem)] leading-tight text-navy-900">
           <button
             type="button"
             onClick={() => onOpen(product)}

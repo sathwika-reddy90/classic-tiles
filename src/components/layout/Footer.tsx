@@ -10,21 +10,25 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-navy-950 text-ivory" aria-labelledby="contact-title">
-      <div className="shell pt-24 pb-10 lg:pt-36">
+    <footer
+      id="contact"
+      className="screen relative overflow-hidden bg-navy-950 text-ivory"
+      aria-labelledby="contact-title"
+    >
+      <div className="shell relative z-10 pt-24 pb-10 lg:py-0">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <Eyebrow className="text-gold" >Contact</Eyebrow>
+            <Eyebrow className="text-gold">Contact</Eyebrow>
             <Lines
               id="contact-title"
               lines={['Speak with', 'Classic.']}
-              className="serif mt-8 text-h1 text-ivory"
+              className="serif mt-6 text-h2 text-ivory lg:mt-7"
             />
-            <p data-reveal className="mt-8 max-w-[38ch] text-ivory/70">
-              For specifications, quantities and project enquiries, call the factory directly or visit us at IDA Nacharam,
-              Hyderabad.
+            <p data-reveal className="mt-7 max-w-[38ch] text-ivory/70">
+              For specifications, quantities and project enquiries, call the factory directly or visit us at IDA
+              Nacharam, Hyderabad.
             </p>
-            <button type="button" data-reveal onClick={() => openEnquiry()} className="btn btn-ivory mt-10">
+            <button type="button" data-reveal onClick={() => openEnquiry()} className="btn btn-ivory mt-9">
               <span>Enquire</span>
               <Arrow />
             </button>
@@ -54,7 +58,10 @@ export function Footer() {
               <ul className="mt-5 space-y-2">
                 {company.phones.map((p) => (
                   <li key={p.tel}>
-                    <a href={`tel:${p.tel}`} className="serif tabular link-line text-[1.75rem] leading-tight text-ivory">
+                    <a
+                      href={`tel:${p.tel}`}
+                      className="serif tabular link-line text-[1.35rem] leading-tight text-ivory"
+                    >
                       {p.display}
                     </a>
                   </li>
@@ -76,9 +83,15 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-24 grid gap-10 border-t border-ivory/10 pt-10 lg:mt-32 lg:grid-cols-12 lg:items-center lg:gap-8">
+        <div className="mt-24 grid gap-10 border-t border-ivory/10 pt-10 lg:mt-[clamp(2rem,7vh,5rem)] lg:grid-cols-12 lg:items-center lg:gap-8 lg:pt-7">
           <div className="flex items-center gap-6 lg:col-span-4">
-            <Img group="brand" name="crest" alt="Classic Hyderabad crest" sizes="96px" className="h-auto w-24 shrink-0" />
+            <Img
+              group="brand"
+              name="crest"
+              alt="Classic Hyderabad crest"
+              sizes="96px"
+              className="h-auto w-24 shrink-0"
+            />
             <ul className="space-y-1 text-[0.8125rem] text-ivory/60">
               {groupCompanies.map((g) => (
                 <li key={g.name}>{g.name}</li>
@@ -89,7 +102,10 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-7 gap-y-3 xl:gap-x-9">
               {navLinks.map((l) => (
                 <li key={l.to}>
-                  <TLink to={l.to} className="link-line text-[0.6875rem] font-medium tracking-[0.22em] text-ivory/80 uppercase">
+                  <TLink
+                    to={l.to}
+                    className="link-line text-[0.6875rem] font-medium tracking-[0.22em] text-ivory/80 uppercase"
+                  >
                     {l.label}
                   </TLink>
                 </li>
@@ -101,17 +117,15 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 text-[0.75rem] text-ivory/45 sm:flex-row sm:justify-between">
-          <p>
-            © {year} Classic Designer Tiles (P) Ltd. All rights reserved.
-          </p>
+        <div className="mt-10 flex flex-col gap-2 text-[0.75rem] text-ivory/45 sm:flex-row sm:justify-between lg:mt-6">
+          <p>© {year} Classic Designer Tiles (P) Ltd. All rights reserved.</p>
           <p>{company.tagline}</p>
         </div>
       </div>
 
       <p
         aria-hidden="true"
-        className="serif pointer-events-none -mb-[0.18em] text-center text-[16.5vw] leading-[0.8] tracking-[0.04em] whitespace-nowrap text-ivory/[0.045] uppercase select-none"
+        className="serif pointer-events-none -mb-[0.18em] text-center text-[14vw] lg:absolute lg:inset-x-0 lg:bottom-0 lg:mb-[-0.2em] leading-[0.8] tracking-[-0.02em] whitespace-nowrap text-ivory/[0.045] uppercase select-none"
       >
         Classic
       </p>

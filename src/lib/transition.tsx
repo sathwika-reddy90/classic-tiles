@@ -63,7 +63,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     <TransitionContext.Provider value={{ go }}>
       {children}
       <div className="curtain grid place-items-center" data-state={phase} aria-hidden="true">
-        <span className="serif text-[1.35rem] tracking-[0.42em] text-gold uppercase">Classic</span>
+        <span className="serif text-[1.1rem] tracking-[0.3em] text-gold uppercase">Classic</span>
       </div>
     </TransitionContext.Provider>
   )

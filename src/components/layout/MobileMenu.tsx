@@ -35,7 +35,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
           <Wordmark />
         </TLink>
         <button type="button" onClick={close} className="-mr-2 flex h-11 items-center gap-3 px-2" data-autofocus>
-          <span className="text-[0.6875rem] font-medium tracking-[0.24em] uppercase">Close</span>
+          <span className="text-[0.75rem] font-semibold tracking-[0.14em] uppercase">Close</span>
           <span aria-hidden="true" className="relative block h-4 w-4">
             <span className="absolute top-1/2 left-0 h-px w-full rotate-45 bg-current" />
             <span className="absolute top-1/2 left-0 h-px w-full -rotate-45 bg-current" />
@@ -57,7 +57,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                 }`}
               >
                 <span className="tabular w-6 text-[0.6875rem] tracking-[0.2em] text-gold">0{i + 1}</span>
-                <span className="serif text-[2.75rem] leading-[1.1] group-aria-[current=page]:italic sm:text-[3.5rem]">
+                <span className="text-[2.25rem] leading-[1.15] font-semibold group-aria-[current=page]:text-gold-soft sm:text-[3rem]">
                   {link.label}
                 </span>
               </TLink>
