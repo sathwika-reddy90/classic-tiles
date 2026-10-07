@@ -34,24 +34,26 @@ export function Leadership() {
             </ul>
           </div>
 
-          <figure className="lg:col-span-6 lg:col-start-7">
-            <div
-              data-reveal="image"
-              className="relative aspect-[17/13] overflow-hidden bg-[#0c2350] lg:aspect-auto lg:h-[min(44svh,30rem)] [@media(max-height:50rem)]:lg:h-[40svh]"
-            >
-              <Img
-                group="scenes"
-                name="leadership"
-                alt="Ln. Tallada Venkanna, Founder Chairman & Managing Director, with Director Tallada Sunil"
-                sizes="(min-width: 1024px) 46vw, 100vw"
-                className="h-full w-full object-cover object-top"
-              />
+          <figure className="lg:col-span-6 lg:col-start-7 lg:grid lg:justify-items-end">
+            <div className="lg:w-fit">
               <div
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy-900/70 to-transparent"
-              />
+                data-reveal="image"
+                className="relative aspect-[17/13] overflow-hidden bg-[#0c2350] lg:h-[min(50svh,34rem)] lg:max-w-full [@media(max-height:50rem)]:lg:h-[42svh]"
+              >
+                <Img
+                  group="scenes"
+                  name="leadership"
+                  alt="Ln. Tallada Venkanna, Founder Chairman & Managing Director, with Director Tallada Sunil"
+                  sizes="(min-width: 1024px) 46vw, 100vw"
+                  className="h-full w-full object-cover"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy-900/50 to-transparent"
+                />
+              </div>
+              <figcaption className="meta mt-4 text-ivory/50">Ln. Tallada Venkanna · Tallada Sunil</figcaption>
             </div>
-            <figcaption className="meta mt-4 text-ivory/50">Ln. Tallada Venkanna · Tallada Sunil</figcaption>
           </figure>
         </div>
 
